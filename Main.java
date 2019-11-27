@@ -1,6 +1,9 @@
+package main.java;
 
+//import javafx.util.Pair;
 
-import javafx.util.Pair;
+import jdk.internal.util.xml.impl.Pair;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -8,10 +11,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-
-    static Scanner in;
-
     public static void main(String[] args) {
+        Scanner in = null;
+        PrintWriter out = null;
+        RFunctions rFunctions = new RFunctions();
+        int n = 0;
+        System.out.println(rFunctions.fib(n));
+        System.out.println(rFunctions.factor(n));
+//        rFunctions.reverse(in, out);
+    /*
+
+
+
         in = new Scanner(System.in);
         memo = new long[1000];
         used = new boolean[1000];
@@ -46,11 +57,6 @@ public class Main {
         return memo[n];
     }
 
-
-
-
-
-
     BigInteger fib(int n){
         return null;
     }
@@ -67,7 +73,7 @@ public class Main {
 
     }
 
-    Pair<ArrayList<Integer>, ArrayList<Integer>> split(ArrayList<Integer> list){
+  /*  Pair<ArrayList<Integer>, ArrayList<Integer>> split(ArrayList<Integer> list){
 
         return null;
     }
@@ -83,5 +89,7 @@ public class Main {
 
     long knackPack(int [] data, long limit, long  start, int index, ArrayList<Integer> list){
         return 0;
+    }
+    */
     }
 }

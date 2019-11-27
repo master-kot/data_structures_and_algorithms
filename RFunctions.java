@@ -1,6 +1,9 @@
+package main.java;
 
+//import javafx.util.Pair;
 
-import javafx.util.Pair;
+import jdk.internal.util.xml.impl.Pair;
+
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -11,39 +14,49 @@ import java.util.Scanner;
 public class RFunctions {
 
     //функция должна находить число Фибоначчи с номер н
-    BigInteger fib(int n){
+    public BigInteger fib(int n){
+    //public int fib(int n){
         //TODO
-        return null;
+        if (n == 0) return new BigInteger(String.valueOf(0));
+        if (n == 1) return new BigInteger(String.valueOf(1));
+        if (n == 2) return new BigInteger(String.valueOf(1));
+        return new BigInteger(String.valueOf(fib(n-1).add(fib(n-2))));
     }
 
-    //функция должна считать факториал числа
-    BigInteger factor(int n){
+    //функция должна считать факториал числа n*factor(n-1)
+    public BigInteger factor(int n){
         //TODO
-        return null;
+        if (n == 0) return new BigInteger(String.valueOf(0));
+        if (n == 1) return new BigInteger(String.valueOf(1));
+        return factor(n-1).multiply(new BigInteger(String.valueOf(n)));
     }
 
     //функция должна вводить числа из in до тех пор пока не будет введен 0
     //и вывести в out все числа в обратном порядке без 0
-    void reverse(Scanner in, PrintWriter out){
+    public void reverse(Scanner in, PrintWriter out){
         //TODO
+        
     }
 
     //функция должна отсортировать массив слиянием
-    ArrayList<Integer> mergeSort(ArrayList<Integer> list){
+    public ArrayList<Integer> mergeSort(ArrayList<Integer> list){
         //TODO
+        Integer[] arrayOfList = new Integer[list.size()];
+        list.toArray(arrayOfList);
+
         return null;
     }
 
+
     //функция должна разбить список пополам (2 2 для 4 или 3 2 для 5)
-    Pair<ArrayList<Integer>, ArrayList<Integer>>
+/*    Pair<ArrayList<Integer>, ArrayList<Integer>>
     split(ArrayList<Integer> list){
         //TODO
         return null;
-    }
+    }*/
 
     //функция должна вернуть отсортированный список, сливаемый из двух отсортированных
-    ArrayList<Integer>
-    merge(ArrayList<Integer> left, ArrayList<Integer> right){
+    public ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right){
         //TODO
         return null;
     }
