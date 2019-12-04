@@ -64,7 +64,15 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
                 root = null;
             } else if (result.l == null) {
                 root = result.r;
-            } else root = result.l;
+            } else if (result.r == null) {
+                root = result.l;
+            } else {
+                //косяк: здесть должна быть рекурсия
+                //которая делает заменяет root на один из член result.r либо
+                //result.l, а второй потомок бывшего root должен стать потомком result
+                //либо потомком одного из потомков result в зависимости
+                //от значения result
+            }
             size--;
         } else {
             if (result.l == null && result.r == null) {
@@ -72,11 +80,16 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
             } else if (result.l == null) {
                 if (parentSide == -1) parent.l = result.r;
                 if (parentSide == 1) parent.r = result.r;
-                result = null;
-            } else {
+                result = result.r;
+            } else if (result.r == null) {
                 if (parentSide == -1) parent.l = result.l;
                 if (parentSide == 1) parent.r = result.l;
-                result = null;
+                result = result.l;
+            } else {
+                //косяк: здесть должна быть рекурсия
+                //которая делает член result.r либо потомком result
+                //либо потомком одного из потомков result в зависимости
+                //от значения result
             }
             size--;
         }

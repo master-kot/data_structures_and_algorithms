@@ -9,10 +9,13 @@ public class Main {
         tree.add(5);
         tree.add(1);
         tree.add(7);
-        tree.add(3);
-        tree.add(10);
-        tree.add(12);
-        tree.add(-3);
+//        tree.add(3);
+//        tree.add(8);
+//        tree.add(2);
+//        tree.add(10);
+//        tree.add(12);
+//        tree.add(0);
+//        tree.add(-3);
         for (int i = 0; i < 13; i++) {
             System.out.println(i + " " + tree.find(i));
         }
