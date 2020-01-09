@@ -82,9 +82,9 @@ public class MyArray<T extends Comparable<T>> {
      * */
     public T [] toArray(){
         //TODO
-        T[] toArray = new T[size];
+        T[] dataArray = new T[size];
         System.arraycopy(data, 0, dataArray, 0, size);
-        return toArray;
+        return dataArray;
     }
 
     /*
@@ -166,26 +166,6 @@ public class MyArray<T extends Comparable<T>> {
             return integerPair;
         }
     }
-
-    public class Pair<Integer> {
-
-        private final Integer left;
-        private final Integer right;
-
-        public Pair(Integer left, Integer right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        public Integer getLeft() {
-            return left;
-        }
-
-        public Integer getRight() {
-            return right;
-        }
-    }
-
 
     public void bubbleSort(){
         //TODO
