@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class MyArray<T extends Comparable<T>> {
-
+    /**
+     * Задача: реализовать методы самописного класса ArrayList
+     */
     private Object[] data;
     private int size, capacity;
 
@@ -21,6 +23,9 @@ public class MyArray<T extends Comparable<T>> {
         System.out.println();
     }
 
+    /**
+     * Добавдение элемента массива в конец списка
+     */
     public void add(T element){
         if(size >= capacity){
             reallocate();
@@ -53,6 +58,9 @@ public class MyArray<T extends Comparable<T>> {
         size++;
     }
 
+    /**
+     * Релокация - увеличение размера массива данных
+     */
     private void reallocate(){
         capacity *= 2;
         Object[] tmp = new Object[capacity];
@@ -61,11 +69,17 @@ public class MyArray<T extends Comparable<T>> {
         data = tmp;
     }
 
+    /**
+     * Метод удаления последнего элемента массива
+     */
     public boolean remove(){
         size--;
         return size >= 0;
     }
 
+    /**
+     * Метод удаления элемента массива по индексу
+     */
     public boolean remove(int index){
         if(index > size || index < 0){
             throw new ArrayIndexOutOfBoundsException("index = " + index);
@@ -77,37 +91,38 @@ public class MyArray<T extends Comparable<T>> {
         return true;
     }
 
-    /*
+    //TODO
+    /**
      * Метод должен возвращать массив размером size
-     * */
+     */
     public T [] toArray(){
-        //TODO
         T[] dataArray = new T[size];
         System.arraycopy(data, 0, dataArray, 0, size);
         return dataArray;
     }
 
-    /*
+    //TODO
+    /**
     * Метод должен возвращать индекс первого найденного элемента
     * или -1, если такого нет
-    * */
+    */
     public int linearSearch(T element){
-        //TODO
         for (int i = 0; i < size; i++) {
             if (((T)data[i]).compareTo(element)) return i;
         }
         return -1;
     }
 
-    /*
+    //TODO
+    /**
      * Тип data - Object, но для сортировки нам нужен сравнимый тип
      * мы именного его передаем внутрь
      * Поскольку класс Объект родитель всего
      * справедлива следующая запись: ((T)arrayElement).compareTo(T otherElement)
      * Объект приведенный к типу Т, будет иметь метод сравнения
-     * */
+     */
     public void insertSort(){
-        //TODO
+
     }
 
     static class Pair<T> {
@@ -120,7 +135,8 @@ public class MyArray<T extends Comparable<T>> {
         }
     }
 
-    /*
+    //TODO
+    /**
     * Метод должен вернуть пару из значения элемента
     * и количества раз, которое он встретился в массиве data
     * вернуть нужно пару, элемент которой встретился наибольшее количество раз
@@ -131,7 +147,6 @@ public class MyArray<T extends Comparable<T>> {
     * Пусть data = [1, 1, 3, 4, 5, 6] тогда ответ new Pair<Integer>(1, 2)
     * */
     public Pair<Integer> taskMaxCount(){
-        //TODO
         int biggerElemant;
         int[] value = new int[size];
         int[] amount = new int[size];
@@ -167,6 +182,9 @@ public class MyArray<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * Метод сортировки "пузырьком"
+     */
     public void bubbleSort(){
         //TODO
         T tmp = new T;
@@ -180,17 +198,22 @@ public class MyArray<T extends Comparable<T>> {
             }
         }
     }
-    /*
-     * Задача под звездочкой
-     * решается опционально, кому интересно
-     * O(NlogN)
-     * */
+
+    //TODO
+    /**
+     * Задача под звездочкой, решается опционально, O(NlogN)
+     */
     public void quickSort(){
-        //TODO
+
     }
 
+    //TODO
+
+    /**
+     *
+     */
     private void quickSort(int left, int right) {
-        //TODO
+
     }
 
     public static void main(String[] args) {
@@ -201,5 +224,4 @@ public class MyArray<T extends Comparable<T>> {
 
         System.out.println(Arrays.toString(arr.toArray()));
     }
-
 }
