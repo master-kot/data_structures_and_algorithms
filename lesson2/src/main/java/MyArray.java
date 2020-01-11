@@ -24,13 +24,13 @@ public class MyArray<T extends Comparable<T>> {
     }
 
     /**
-     * Добавдение элемента массива в конец списка
+     * Реализовать вставку элемента в конец массива
      */
-    public void add(T element){
-        if(size >= capacity){
+    public void add(T value){
+        if (size >= capacity) {
             reallocate();
         }
-        data[size] = element;
+        data[size] = value;
         size++;
     }
 
@@ -39,49 +39,52 @@ public class MyArray<T extends Comparable<T>> {
     }
 
     public T get(int index) {
-        return (T)data[index];
+        return (T) data[index];
     }
 
     public int size(){
         return size;
     }
 
-    public void add(int index, T element){
-        if(size >= capacity){
+    /**
+     * Реализовать вставку элемента по индексу
+     */
+    public void add(int index, T value) {
+        if (size >= capacity) {
             reallocate();
         }
         if (size - index >= 0) {
-            System.arraycopy(data, index, data,
-                        index + 1, size - index);
+            System.arraycopy(data, index, data, index + 1, size - index);
         }
-        data[index] = element;
-        size++;
+        data[index] = value;
+        size ++;
     }
 
     /**
-     * Релокация - увеличение размера массива данных
+     * Метод увеличения размера массива
      */
-    private void reallocate(){
+    private void reallocate() {
         capacity *= 2;
-        Object[] tmp = new Object[capacity];
-        if (size >= 0) System.arraycopy(data, 0, tmp,
-                0, size);
+        Object [] tmp = new Object[capacity];
+        if (size >= 0) {
+            System.arraycopy(data, 0, tmp, 0, size);
+        }
         data = tmp;
     }
 
     /**
      * Метод удаления последнего элемента массива
      */
-    public boolean remove(){
+    public boolean remove () {
         size--;
-        return size >= 0;
+        return size>=0;
     }
 
     /**
-     * Метод удаления элемента массива по индексу
+     * Реализовать удаление элемента по индексу
      */
-    public boolean remove(int index){
-        if(index > size || index < 0){
+    public boolean remove(int index) {
+        if (index > size || index < 0) {
             throw new ArrayIndexOutOfBoundsException("index = " + index);
         }
         if (size - 1 - index >= 0) {
@@ -91,14 +94,28 @@ public class MyArray<T extends Comparable<T>> {
         return true;
     }
 
+    /**
+     * Вывести элементы в виде строки вида: [1, 2, 3, 4, 5]
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < size - 1; i++) {
+            sb.append(data[i]).append(", ");
+        }
+        sb.append(data[size-1]).append("]");
+        return sb.toString();
+    }
+
     //TODO
     /**
      * Метод должен возвращать массив размером size
      */
-    public T [] toArray(){
-        T[] dataArray = new T[size];
+    public T[] toArray(){
+/*        T[] dataArray = new T[size];
         System.arraycopy(data, 0, dataArray, 0, size);
-        return dataArray;
+*/        return null; //dataArray;
     }
 
     //TODO
@@ -108,46 +125,35 @@ public class MyArray<T extends Comparable<T>> {
     */
     public int linearSearch(T element){
         for (int i = 0; i < size; i++) {
-            if (((T)data[i]).compareTo(element)) return i;
+//            if (((T)data[i]).compareTo(element)) return i;
         }
         return -1;
     }
 
     //TODO
     /**
-     * Тип data - Object, но для сортировки нам нужен сравнимый тип
-     * мы именного его передаем внутрь
-     * Поскольку класс Объект родитель всего
-     * справедлива следующая запись: ((T)arrayElement).compareTo(T otherElement)
+     * Тип data - Object, для сортировки нужен сравнимый тип именного его передаем внутрь
+     * Поскольку класс Объект родитель всего справедлива следующая запись:
+     * ((T)arrayElement).compareTo(T otherElement)
      * Объект приведенный к типу Т, будет иметь метод сравнения
      */
     public void insertSort(){
 
     }
 
-    static class Pair<T> {
-        T element;
-        Integer counter;
-
-        public Pair(T element, Integer counter) {
-            this.element = element;
-            this.counter = counter;
-        }
-    }
-
     //TODO
     /**
-    * Метод должен вернуть пару из значения элемента
-    * и количества раз, которое он встретился в массиве data
-    * вернуть нужно пару, элемент которой встретился наибольшее количество раз
-    * А если таквых элементов много, то нужно вернуть тот, у которого значение наибольшее
-    * Пусть data = [1, 3, 1, 5, 1, 4] тогда ответ new Pair<Integer>(1, 3)
-    * Пусть data = [1, 2, 1, 2, 1, 2] тогда ответ new Pair<Integer>(2, 3)
-    * Пусть data = [1, 2, 3, 4, 5, 6] тогда ответ new Pair<Integer>(6, 1)
-    * Пусть data = [1, 1, 3, 4, 5, 6] тогда ответ new Pair<Integer>(1, 2)
-    * */
+     * Метод должен вернуть пару из значения элемента и количества раз,
+     * которое он встретился в массиве data. вернуть нужно пару,
+     * элемент которой встретился наибольшее количество раз
+     * Если таквых элементов много, нужно вернуть тот, у которого значение наибольшее
+     * Пусть data = [1, 3, 1, 5, 1, 4] тогда ответ new Pair<Integer>(1, 3)
+     * Пусть data = [1, 2, 1, 2, 1, 2] тогда ответ new Pair<Integer>(2, 3)
+     * Пусть data = [1, 2, 3, 4, 5, 6] тогда ответ new Pair<Integer>(6, 1)
+     * Пусть data = [1, 1, 3, 4, 5, 6] тогда ответ new Pair<Integer>(1, 2)
+     */
     public Pair<Integer> taskMaxCount(){
-        int biggerElemant;
+/*        int biggerElemant;
         int[] value = new int[size];
         int[] amount = new int[size];
         int numberMaxMember = 0;
@@ -179,23 +185,24 @@ public class MyArray<T extends Comparable<T>> {
         } else {
             Pair<Integer> integerPair = new Pair(maxMember, numberMaxMember);
             return integerPair;
-        }
+        }*/
+        return null;
     }
 
+    //TODO
     /**
      * Метод сортировки "пузырьком"
      */
     public void bubbleSort(){
-        //TODO
-        T tmp = new T;
+        //T tmp = new T;
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
+/*            for (int j = 0; j < size - i - 1; j++) {
                 if(data[j].compareTo(data[j+1]) > 0){
                     tmp = data[j];
                     data[j] = data[j+1];
                     data[j+1] = tmp;
                 }
-            }
+*/
         }
     }
 
@@ -203,25 +210,13 @@ public class MyArray<T extends Comparable<T>> {
     /**
      * Задача под звездочкой, решается опционально, O(NlogN)
      */
-    public void quickSort(){
-
+    public void quickSort() {
     }
 
     //TODO
-
     /**
      *
      */
     private void quickSort(int left, int right) {
-
-    }
-
-    public static void main(String[] args) {
-        MyArray<String> arr = new MyArray<>();
-        for (int i = 0; i < 100000; i++) {
-            arr.add("i+1");
-        }
-
-        System.out.println(Arrays.toString(arr.toArray()));
     }
 }
