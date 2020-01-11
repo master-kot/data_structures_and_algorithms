@@ -9,55 +9,67 @@ public class DArray<T> {
         data = new Object[capacity];
     }
 
-    private void reallocate(){
-        System.err.println("array was reallocated " + capacity);
+    /**
+     * Метод увеличения размера массива
+     */
+    private void reallocate() {
         capacity *= 2;
         Object [] tmp = new Object[capacity];
         if (size >= 0) {
-            System.arraycopy(data, 0,
-                    tmp, 0, size);
+            System.arraycopy(data, 0, tmp, 0, size);
         }
         data = tmp;
     }
 
-    public void add(T value){
-        if(size < capacity) {
-            data[size] = value;
-            size++;
-        } else {
-            reallocate();
-            data[size] = value;
-            size++;
-        }
-    }
-
-    //TODO
     /**
-     * Реализовать вставку в массив по индексу
+     * Реализовать вставку элемента в конец массива
      */
-    public void add(int index, T value) {
-        Object [] tmp = new Object[++capacity];
-        System.arraycopy(data, 0, tmp, 0, index);
-        tmp[index] = value;
-        System.arraycopy(data, index, tmp, index + 1, size - index);
-        data = tmp;
+    public void add(T value){
+        if (size >= capacity) {
+            reallocate();
+        }
+        data[size] = value;
         size++;
     }
 
     //TODO
     /**
-     * Реализовать удаление по индексу
+     * Реализовать вставку элемента по индексу
      */
-    public void remove(int index) {
-        Object [] tmp = new Object[--capacity];
-        System.arraycopy(data, 0, tmp, 0, index);
-        System.arraycopy(data, index+1, tmp, index, --size - index);
-        data = tmp;
+    public void add(int index, T value) {
+        if (size >= capacity) {
+            reallocate();
+        }
+        if (size - index >= 0) {
+            System.arraycopy(data, index, data, index + 1, size - index);
+        }
+        data[index] = value;
+        size ++;
+    }
+
+    public boolean remove () {
+        size--;
+        return size>=0;
     }
 
     //TODO
     /**
-     * Вывести массив элементов в виде такой строки: [1, 2, 3, 4, 5]
+     * Реализовать удаление элемента по индексу
+     */
+    public boolean remove(int index) {
+        if (index > size || index < 0) {
+            throw new ArrayIndexOutOfBoundsException("index = " + index);
+        }
+        if (size - 1 - index >= 0) {
+            System.arraycopy(data, index + 1, data, index, size - 1 - index);
+        }
+        size--;
+        return true;
+    }
+
+    //TODO
+    /**
+     * Вывести элементы в виде строки вида: [1, 2, 3, 4, 5]
      */
     @Override
     public String toString() {
@@ -66,7 +78,7 @@ public class DArray<T> {
         for (int i = 0; i < size - 1; i++) {
             sb.append(data[i]).append(", ");
         }
-        sb.append(data[size]).append("]");
+        sb.append(data[size-1]).append("]");
         return sb.toString();
     }
 
