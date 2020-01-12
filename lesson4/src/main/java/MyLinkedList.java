@@ -24,11 +24,6 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
     public Iterator<T> iterator(){
-        //?????????????????
-        //к сожалению так и не смог допилить итератор
-        //соответственно показывает содержимое шкафа он не совсем адекватно
-        //но как бы то ни было, метод показать содержимое шкафа я реализовал
-        //и он работает отображая его содержимое
         iteratorNode = head;
 
         return new Iterator<T>() {
@@ -76,14 +71,14 @@ public class MyLinkedList<T> implements Iterable<T> {
                 tail.next.prev = tail;
                 tail = tail.next;
                 size++;
-                System.out.println("add1-0: " + tmp.value + ", size: " + size + ", list: " + toString());
+//                System.out.println("add1-0: " + tmp.value + ", size: " + size + ", list: " + toString());
             } else {
                 tail = head;
                 head = tmp;
                 tail.prev = head;
                 head.next = tail;
                 size++;
-                System.out.println("add1-1: " + tmp.value + ", size: " + size + ", list: " + toString());
+//                System.out.println("add1-1: " + tmp.value + ", size: " + size + ", list: " + toString());
             }
         } else {
             Node<T> node = head;
@@ -94,7 +89,7 @@ public class MyLinkedList<T> implements Iterable<T> {
                     tail.next.prev = tail;
                     tail = tail.next;
                     size++;
-                    System.out.println("add2-0: " + tmp.value + ", size: " + size + ", list: " + toString());
+//                    System.out.println("add2-0: " + tmp.value + ", size: " + size + ", list: " + toString());
                     return;
                 }
             }
@@ -103,7 +98,7 @@ public class MyLinkedList<T> implements Iterable<T> {
                 head.prev.next = head;
                 head = head.prev;
                 size++;
-                System.out.println("add2-1: " + tmp.value + ", size: " + size + ", list: " + toString());
+//                System.out.println("add2-1: " + tmp.value + ", size: " + size + ", list: " + toString());
             } else {
                 Node<T> prev = node.prev;
                 tmp.next = node;
@@ -111,7 +106,7 @@ public class MyLinkedList<T> implements Iterable<T> {
                 prev.next = tmp;
                 node.prev = tmp;
                 size++;
-                System.out.println("add2-2: " + tmp.value + ", size: " + size + ", list: " + toString());
+//                System.out.println("add2-2: " + tmp.value + ", size: " + size + ", list: " + toString());
             }
         }
     }
