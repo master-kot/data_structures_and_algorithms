@@ -69,11 +69,9 @@ public class LinkedQueue implements Fifo {
 
     @Override
     public Iterator<Integer> iterator() {
-
         iteratorNode = head;
 
         return new Iterator<Integer>() {
-
             @Override
             public boolean hasNext() {
                 return iteratorNode != null;
