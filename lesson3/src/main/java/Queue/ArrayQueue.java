@@ -13,6 +13,9 @@ public class ArrayQueue implements Fifo {
         data = new int[capacity];
     }
 
+    /**
+     * Увеличение массива данных
+     */
     private void reallocate() {
         capacity *= 2;
         int [] tmp = new int[capacity];
@@ -21,6 +24,9 @@ public class ArrayQueue implements Fifo {
         data = tmp;
     }
 
+    /**
+     * Добавление элемента в очередь
+     */
     @Override
     public void push(int element) {
         if (capacity <= size) {
@@ -29,6 +35,9 @@ public class ArrayQueue implements Fifo {
         data[size++] = element;
     }
 
+    /**
+     * Получение и удаление элемента из очереди
+     */
     @Override
     public int pop() {
         if(pointer >= size) {
@@ -37,6 +46,9 @@ public class ArrayQueue implements Fifo {
         return data[pointer++];
     }
 
+    /**
+     * Получение элемента из очереди без удаления
+     */
     @Override
     public int top() {
         if (size == 0){

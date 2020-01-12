@@ -1,6 +1,7 @@
 package Deque;
 
-public class Deque<T> {
+public class
+Deque<T> {
 
     private Node<T> head, tail;
     private int size;
