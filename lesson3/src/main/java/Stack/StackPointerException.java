@@ -1,4 +1,4 @@
-package main.java.Stack;
+package Stack;
 
 public class StackPointerException extends ArrayIndexOutOfBoundsException {
     public StackPointerException(String message) {

@@ -1,12 +1,12 @@
-package main.java.Stack;
-
-import main.java.classWork.queue.LinkedQueue;
-import main.java.classWork.queue.QueuePointerException;
+package Stack;
 
 import java.util.Iterator;
 
 public class Stack<T> implements LIFO<T> {
 
+    /**
+     * Реализовать класс стека, имеющий медоды соответственно интерфейсу LIFO
+     */
     private Node<T> tail;
     private int size;
 
@@ -20,18 +20,19 @@ public class Stack<T> implements LIFO<T> {
         return size;
     }
 
+    // TODO: 18/11/2019
     @Override
     public T pop() {
-        // TODO: 18/11/2019
         if(tail == null) {
             throw new StackPointerException("pop from empty queue");
         }
-        T tmpValue = tail.getValue();
+        T tmp = tail.getValue();
         tail = tail.getPrev();
         size--;
-        return tmpValue;
+        return tmp;
     }
 
+    // TODO: 18/11/2019
     @Override
     public T top() {
         if(tail == null) {
@@ -40,22 +41,20 @@ public class Stack<T> implements LIFO<T> {
         return tail.getValue();
     }
 
+    // TODO: 18/11/2019
     @Override
     public void push(T value) {
-        // TODO: 18/11/2019
-        Node node = new Node(value);
-        if (size == 0) {
-            tail = node;
-        } else {
+        Node<T> node = new Node(value);
+        if (size != 0) {
             node.setPrev(tail);
-            tail = node;
         }
+        tail = node;
         size++;
     }
 
+    // TODO: 18/11/2019
     @Override
     public void show() {
-        // TODO: 18/11/2019
     }
 
     private Node<T> iterNode;

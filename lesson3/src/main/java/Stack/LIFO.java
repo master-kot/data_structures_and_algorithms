@@ -1,4 +1,4 @@
-package main.java.Stack;
+package Stack;
 
 public interface LIFO<T> extends Iterable<T>{
     int size();
