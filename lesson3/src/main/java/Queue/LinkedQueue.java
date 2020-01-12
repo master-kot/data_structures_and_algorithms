@@ -60,7 +60,7 @@ public class LinkedQueue implements Fifo {
     @Override
     public int pop() {
         if(head == null) {
-            throw new IndexOutOfBoundsException(("top from empty queue");
+            throw new IndexOutOfBoundsException("top from empty queue");
         }
         size--;
         int tmp = head.value;
@@ -71,7 +71,7 @@ public class LinkedQueue implements Fifo {
     @Override
     public int top() {
         if(head == null) {
-            throw new IndexOutOfBoundsException(("top from empty queue");
+            throw new IndexOutOfBoundsException("top from empty queue");
         }
         return head.value;
     }
