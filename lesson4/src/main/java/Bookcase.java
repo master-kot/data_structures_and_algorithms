@@ -12,7 +12,7 @@ public class Bookcase {
         }
     }
 
-    /*
+    /**
     *  Разработайте структуру данных книжный шкаф
     *  в шкафе есть shelvesCount полок, каждая из которых
     *  может вмещать не более shelveCapacity книг
@@ -23,7 +23,7 @@ public class Bookcase {
     *  можно вытащить любую книгу с любой полки, достаточно передать
     *  в метод номер полки и номер книги
     *  Нумерация полок с 1, нумерация книг с 1
-    * */
+    */
 
     //side - либо 'L' либо 'R'
     public void putBook(int shelveNumber, char side, String bookName) {

@@ -8,6 +8,16 @@ public class MyLinkedList<T> implements Iterable<T> {
     private Iterator<T> iterator;
     private int size;
 
+    private class Node<T> {
+        T value;
+        Node<T> prev, next;
+
+        public Node(T value) {
+            this.value = value;
+            prev = next = null;
+        }
+    }
+
     public MyLinkedList() {
         head = tail = null;
         size = 0;

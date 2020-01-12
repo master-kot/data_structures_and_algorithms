@@ -1,18 +1,16 @@
 public class Deque<T extends Comparable<T>> {
+    private int size;
+    private Node<T> front, back;
 
     private class Node<T> {
-
         T value;
-        Node<T> next, prev;
+        Node<T> prev, next;
 
         public Node(T value) {
             this.value = value;
-            next = prev = null;
+            prev = next = null;
         }
     }
-
-    private int size;
-    private Node<T> front, back;
 
     public Deque() {
         size = 0;
@@ -27,63 +25,6 @@ public class Deque<T extends Comparable<T>> {
         front.prev = null;
         size--;
         return value;
-    }
-
-    //O(N)
-    public void sortedPush(T value) {
-        if (size == 0) {
-            front = back = new Node<>(value);
-        } else if(size == 1) {
-            if (value.compareTo(front.value) > 0) {
-                pushBack(value);
-                return;
-            }
-            else {
-                pushFront(value);
-                return;
-            }
-        } else {
-            Node<T> node = front;
-            String s = "";
-            while (node.value.compareTo(value) < 0) {
-                node = node.next;
-                s += "*";
-                if (node == null) {
-                    pushBack(value);
-                    //System.out.println(s);
-                    return;
-                }
-            }
-            if (node == front) {
-                pushFront(value);
-                //System.out.println(s);
-                return;
-            }
-            Node<T> prev = node.prev;
-            Node<T> tmp = new Node<>(value);
-            tmp.next = node;
-            tmp.prev = prev;
-            prev.next = tmp;
-            node.prev = tmp;
-            //System.out.println(s);
-            //1 <- 2 -> 5
-            //  2
-            //                12
-        }
-        size++;
-    }
-
-    //O(N)
-    public boolean isPalindrome() { // O(N/2) = O(1/2*N)
-        Node<T> head = front, tail = back;
-        while (head != tail) {
-            if (head.value != tail.value) {
-                return false;
-            }
-            head = head.next;
-            tail = tail.prev;
-        }
-        return true;
     }
 
     public T popBack() {
@@ -139,4 +80,51 @@ public class Deque<T extends Comparable<T>> {
         System.out.println();
     }
 
+    /**
+     * Сортированная вставка, Сложность O(N)
+     */
+    public void sortedPush(T value) {
+        if (size == 0) {
+            front = back = new Node<>(value);
+        } else if(size == 1) {
+            if (value.compareTo(front.value) > 0) pushBack(value);
+            else pushFront(value);
+            return;
+        } else {
+            Node<T> node = front;
+            while (node.value.compareTo(value) < 0) {
+                node = node.next;
+                if (node == null) {
+                    pushBack(value);
+                    return;
+                }
+            }
+            if (node == front) {
+                pushFront(value);
+                return;
+            }
+            Node<T> prev = node.prev;
+            Node<T> tmp = new Node<>(value);
+            tmp.next = node;
+            tmp.prev = prev;
+            prev.next = tmp;
+            node.prev = tmp;
+        }
+        size++;
+    }
+
+    /**
+     * Проверка что Deque является полиндромом, сложность O(N)
+     */
+    public boolean isPalindrome() {
+        Node<T> head = front, tail = back;
+        while (head != tail) {
+            if (head.value != tail.value) {
+                return false;
+            }
+            head = head.next;
+            tail = tail.prev;
+        }
+        return true;
+    }
 }
