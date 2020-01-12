@@ -17,42 +17,57 @@ package Stack;
  * б а
  * */
 public class TaskNumberTwo {
-    private int limit;
-    private Stack<Stack> stacks;
-    private int counter;
+    private int limit, size, counter;
+    private Stack<Stack<String>> stacks;
 
     TaskNumberTwo(int limit) {
         this.limit = limit;
         this.counter = 0;
-        stacks = null;
+        this.size = 0;
+        stacks = new Stack<Stack<String>>();
     }
 
     public String pop(){
-        Stack<String> tmp = stacks.pop();
-        String value = tmp.pop();
-        stacks.push(tmp);
-        counter--;
-        return value;
+        String item = null;
+        if (stacks.size() == 0) return null;
+        if (stacks.top().size() == 0) {
+            stacks.pop();
+            if (stacks.size() == 0) return null;
+            item = stacks.top().top();
+            stacks.top().pop();
+        }
+        else {
+            item = stacks.top().top();
+            stacks.top().pop();
+        }
+        return item;
+    }
+
+    public void show() {
+        for (Stack<String> s : stacks) {
+            s.show();
+        }
     }
 
     public void push(String item){
-        if (counter == 0) {
-            Stack<String> newStack = new Stack<String>();
-            newStack.push(item);
-            stacks.push(newStack);
-            counter++;
+        if (stacks.size() == 0) {
+            stacks.push(new Stack<String>());
+            size++;
         }
-        if (counter != 0 && counter <= limit){
-            Stack<String> tmp = stacks.pop();
-            tmp.push(item);
-            stacks.push(tmp);
-            counter++;
+        if (stacks.top().size() < limit) {
+            stacks.top().push(item);
+        } else {
+            stacks.push(new Stack<String>());
+            size++;
+            stacks.top().push(item);
         }
-        if (counter > limit) {
-            Stack<String> newStack = new Stack<String>();
-            newStack.push(item);
-            stacks.push(newStack);
-            counter = counter - limit + 1;
+    }
+
+    public static void main(String[] args) {
+        TaskNumberTwo tnt = new TaskNumberTwo(3);
+        for (int i = 0; i < 7; i++) {
+            tnt.push("Crockery " + (i + 1));
         }
+        tnt.show();
     }
 }

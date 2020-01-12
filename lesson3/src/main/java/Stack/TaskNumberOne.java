@@ -20,28 +20,19 @@ public class TaskNumberOne {
     public boolean trueBracketSequences(String sequence){
         Stack<Character> stack = new Stack<Character>();
         char[] charArray = sequence.toCharArray();
-        try {
             for (int i = 0; i < charArray.length; i++) {
-                if (charArray[i] == '(') stack.push(charArray[i]);
-                if (charArray[i] == ')') stack.pop();
+                if (charArray[i] == '(') stack.push('(');
+                else if (charArray[i] == ')') {
+                    if (stack.size() == 0) return false;
+                    else stack.pop();
+                }
             }
-            if (stack.size() == 0) return true;
-        } catch (StackPointerException e) {
-            return false;
-        }
-        return false;
+        return stack.size() == 0;
     }
 
     public static void main(String[] args) {
         TaskNumberOne stackTasks = new TaskNumberOne();
         System.out.println(stackTasks.trueBracketSequences("((()))"));
-
-        TaskNumberTwo crockeryTest = new TaskNumberTwo(2);
-        for (int i = 0; i < 2; i++) {
-            crockeryTest.push("plate");
-        }
-        for (int i = 0; i < 2; i++) {
-            System.out.println(crockeryTest.pop());
-        }
+        System.out.println(stackTasks.trueBracketSequences("(((fff))"));
     }
 }

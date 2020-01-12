@@ -3,7 +3,6 @@ package Stack;
 import java.util.Iterator;
 
 public class Stack<T> implements LIFO<T> {
-
     /**
      * Реализовать класс стека, имеющий медоды соответственно интерфейсу LIFO
      */
@@ -24,7 +23,7 @@ public class Stack<T> implements LIFO<T> {
     @Override
     public T pop() {
         if(tail == null) {
-            throw new StackPointerException("pop from empty queue");
+            return null;
         }
         T tmp = tail.getValue();
         tail = tail.getPrev();
@@ -36,7 +35,7 @@ public class Stack<T> implements LIFO<T> {
     @Override
     public T top() {
         if(tail == null) {
-            throw new StackPointerException("top from empty queue");
+            return null;
         }
         return tail.getValue();
     }
@@ -55,6 +54,26 @@ public class Stack<T> implements LIFO<T> {
     // TODO: 18/11/2019
     @Override
     public void show() {
+        Node<T> node  = tail;
+        while (node != null){
+            System.out.print(node.getValue() + " ");
+            node = node.getPrev();
+        }
+        System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        Node<T> tmp = tail;
+        StringBuilder sb = new StringBuilder();
+        if (tmp != null) {
+            sb.append(tmp.getValue());
+            while (tmp.getPrev() != null) {
+                tmp = tmp.getPrev();
+                sb.append(" ").append(tmp.getValue());
+            }
+        }
+        return sb.toString();
     }
 
     private Node<T> iterNode;
