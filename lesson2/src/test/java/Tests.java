@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Tests {
 
     protected Duration timeout = Duration.ofSeconds(30);
-    protected MyArray.Pair pair;
+    protected Pair pair;
 
     @Test
     public void maxCounterTest(){
@@ -20,16 +20,16 @@ public class Tests {
         MyArray<Integer> arr = new MyArray<>();
         for (int el : test) arr.add(el);
         pair = arr.taskMaxCount();
-        assertEquals(2, pair.element);
-        assertEquals(4, pair.counter);
+        assertEquals(2, pair.getElement());
+        assertEquals(4, pair.getCounter());
         arr.add(1);
         arr.add(1);
         pair = arr.taskMaxCount();
-        assertEquals(1, pair.element);
-        assertEquals(5, pair.counter);
+        assertEquals(1, pair.getElement());
+        assertEquals(5, pair.getCounter());
         arr.add(2);
-        assertEquals(2, pair.element);
-        assertEquals(5, pair.counter);
+        assertEquals(2, pair.getElement());
+        assertEquals(5, pair.getCounter());
     }
 
     @Test
@@ -53,19 +53,16 @@ public class Tests {
         MyArray<Integer> arr = new MyArray<>();
         for(int i : data) arr.add(i);
         arr.remove();
-        assertArrayEquals(new Integer[]{1,2,3,4,5,6,7,8,9}
-        , arr.toArray());
+        assertArrayEquals(new Integer[]{1,2,3,4,5,6,7,8,9}, arr.toArray());
         arr.remove(2);
         assertArrayEquals(new Integer[]{1,2,4,5,6,7,8,9}
                 , arr.toArray());
         assertEquals(-1, arr.linearSearch(20));
         assertEquals(2, arr.linearSearch(4));
         arr.add(0, 100);
-        assertArrayEquals(new Integer[]{100, 1,2,4,5,6,7,8,9}
-                , arr.toArray());
+        assertArrayEquals(new Integer[]{100, 1,2,4,5,6,7,8,9}, arr.toArray());
         arr.add(3, 100);
-        assertArrayEquals(new Integer[]{100,1,2,100,4,5,6,7,8,9}
-                , arr.toArray());
+        assertArrayEquals(new Integer[]{100,1,2,100,4,5,6,7,8,9}, arr.toArray());
         for (int i = 0; i < 100; i++) {
             arr.remove();
         }
@@ -73,8 +70,7 @@ public class Tests {
         for (int i = 0; i < 10; i++) {
             arr.add(0, i);
         }
-        assertArrayEquals(new Integer[]{9,8,7,6,5,4,3,2,1,0}
-                , arr.toArray());
+        assertArrayEquals(new Integer[]{9,8,7,6,5,4,3,2,1,0}, arr.toArray());
     }
 
     String path = "/Users/levinmk/IdeaProjects/AS_geek_brains/lesson2/src/main/resources/";

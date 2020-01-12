@@ -1,10 +1,11 @@
 # data_structures_and_algorithms
-This part contains different examples of usage and creating of data structures and algorithms. Themes are: 
-lesson 1: Understanding array as a data structure, implementation of a simple example of ArrayList class
-lesson 2: Implementation of different difficult methods of array sorting
-lesson 3: Implementation of simple linked list
-lesson 4: Implementation of stack and queue
-lesson 5: Рекурсия, использование рекурсии для решения задач
-lesson 6: Trees, implementation of Binary search tree
-lesson 7: Графы
-lesson 8: Understanding hash-code, implementation of hash-table
+This part contains different examples of data structures implementation and algorithms usage.
+Themes of the course are: 
+lesson 1: Understanding of an array list as a data structure. Implementation of an example of ArrayList class.
+lesson 2: Implementation of different methods of array's sorting.
+lesson 3: Implementation of a simple linked list.
+lesson 4: Implementation examples of a stack and a queue.
+lesson 5: Recursion and its usage.
+lesson 6: Trees. Implementation of Binary-search tree.
+lesson 7: Implementation of a graph.
+lesson 8: Understanding of a hash-code, implementation of a hash-table class.

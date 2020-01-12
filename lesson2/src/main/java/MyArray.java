@@ -1,9 +1,4 @@
-﻿
-import java.lang.Object;
-import java.util.Arrays;
-import java.util.Comparator;
-
-public class MyArray<T extends Comparable<T>> {
+public class MyArray <T extends Comparable<T>> {
     /**
      * Задача: реализовать методы самописного класса ArrayList
      */
@@ -113,19 +108,19 @@ public class MyArray<T extends Comparable<T>> {
      * Метод должен возвращать массив размером size
      */
     public T[] toArray(){
-/*        T[] dataArray = new T[size];
+        Object[] dataArray = new Object[size];
         System.arraycopy(data, 0, dataArray, 0, size);
-*/        return null; //dataArray;
+        return (T[]) dataArray;
     }
 
     //TODO
     /**
-    * Метод должен возвращать индекс первого найденного элемента
-    * или -1, если такого нет
-    */
+     * Метод линейного поиска, должен возвращать индекс первого
+     * найденного элемента или -1, если такого нет
+     */
     public int linearSearch(T element){
         for (int i = 0; i < size; i++) {
-//            if (((T)data[i]).compareTo(element)) return i;
+            if (((T)data[i]).compareTo(element) == 0) return i;
         }
         return -1;
     }
@@ -138,7 +133,6 @@ public class MyArray<T extends Comparable<T>> {
      * Объект приведенный к типу Т, будет иметь метод сравнения
      */
     public void insertSort(){
-
     }
 
     //TODO
@@ -146,47 +140,28 @@ public class MyArray<T extends Comparable<T>> {
      * Метод должен вернуть пару из значения элемента и количества раз,
      * которое он встретился в массиве data. вернуть нужно пару,
      * элемент которой встретился наибольшее количество раз
-     * Если таквых элементов много, нужно вернуть тот, у которого значение наибольшее
+     * Если таковых элементов много, нужно вернуть тот, у которого значение наибольшее
      * Пусть data = [1, 3, 1, 5, 1, 4] тогда ответ new Pair<Integer>(1, 3)
      * Пусть data = [1, 2, 1, 2, 1, 2] тогда ответ new Pair<Integer>(2, 3)
      * Пусть data = [1, 2, 3, 4, 5, 6] тогда ответ new Pair<Integer>(6, 1)
      * Пусть data = [1, 1, 3, 4, 5, 6] тогда ответ new Pair<Integer>(1, 2)
      */
-    public Pair<Integer> taskMaxCount(){
-/*        int biggerElemant;
-        int[] value = new int[size];
-        int[] amount = new int[size];
-        int numberMaxMember = 0;
-        int maxMember = data[0];
-        int counterRare = 0;
-        int numberRare = 0;
-        for (int i = 0; i <size; i++){
-            for (int j = 0; j <= i; j++) {
-                if (data[i] == value[j]) {
-                    amount[i]++;
+    public Pair<T> taskMaxCount(){
+        bubbleSort();
+        int cnt = 1, max = 0;
+        T element = null;
+        for (int i = 0; i < size - 1; i++) {
+            if (((T) data[i]).compareTo((T) data[i + 1]) == 0) {
+                cnt++;
+            } else {
+                if (cnt >= max) {
+                    max = cnt;
+                    element = (T) data[i];
                 }
-            }
-            if (amount[i] > counterRare) {
-                counterRare = amount[i];
-                numberRare = i;
-            }
-            if (amount[i] == 0) {
-                value[i] = data[i];
-                amount[i] = 1;
-                if (value[i] > maxMember) {
-                    maxMember = value[i];
-                    numberMaxMember = i;
-                }
+                cnt = 1;
             }
         }
-        if (counterRare > 1) {
-            Pair<Integer> integerPair = new Pair(value[numberRare], counterRare);
-            return integerPair;
-        } else {
-            Pair<Integer> integerPair = new Pair(maxMember, numberMaxMember);
-            return integerPair;
-        }*/
-        return null;
+        return new Pair<T>(element, cnt);
     }
 
     //TODO
@@ -194,29 +169,25 @@ public class MyArray<T extends Comparable<T>> {
      * Метод сортировки "пузырьком"
      */
     public void bubbleSort(){
-        //T tmp = new T;
         for (int i = 0; i < size; i++) {
-/*            for (int j = 0; j < size - i - 1; j++) {
-                if(data[j].compareTo(data[j+1]) > 0){
-                    tmp = data[j];
-                    data[j] = data[j+1];
-                    data[j+1] = tmp;
+            for (int j = 0; j < size - i - 1; j++) {
+                if (((T)data[j]).compareTo((T)data[j + 1]) > 0) {
+                    Object tmp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = tmp;
                 }
-*/
+            }
         }
     }
 
     //TODO
     /**
-     * Задача под звездочкой, решается опционально, O(NlogN)
+     * Метод скоростной сортировки, сложность сортировки - O(NlogN)
      */
     public void quickSort() {
     }
 
-    //TODO
-    /**
-     *
-     */
-    private void quickSort(int left, int right) {
+    public static void main(String[] args) {
+        MyArray myArray = new MyArray();
     }
 }

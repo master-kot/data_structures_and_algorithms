@@ -1,6 +1,6 @@
 public class Pair<T> {
     private final T element;
-    private final Integer counter;
+    private Integer counter;
 
     public Pair(T element, Integer counter) {
         this.element = element;
@@ -13,5 +13,9 @@ public class Pair<T> {
 
     public Integer getCounter() {
         return counter;
+    }
+
+    public void increaseCounter() {
+        counter++;
     }
 }
