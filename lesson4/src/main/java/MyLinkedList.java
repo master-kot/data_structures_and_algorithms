@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 public class MyLinkedList<T> implements Iterable<T> {
 
     private Node<T> head, tail, iteratorNode;
-    private Iterator<T> iterator;
     private int size;
 
     private class Node<T> {
@@ -23,94 +22,6 @@ public class MyLinkedList<T> implements Iterable<T> {
         size = 0;
     }
 
-    public Iterator<T> iterator(){
-        iteratorNode = head;
-
-        return new Iterator<T>() {
-
-            public void remove(){
-                //TODO
-                //удаляем текущий следующий становится текущим
-                iteratorNode = iteratorNode.next;
-//                System.out.println("Method remove");
-            }
-
-            @Override
-            public boolean hasNext() {
-                //TODO
-                //проверка не ссылаемся ли мы на null
-                if (iteratorNode.next != null) return true;
-//                System.out.println("Method hasNext");
-                return false;
-            }
-
-            @Override
-            public T next() {
-                //TODO
-                //возвращаем текущий и переходим к следющему
-                T tmp = iteratorNode.value;
-                iteratorNode = iteratorNode.next;
-//                System.out.println("Method next");
-                return tmp;
-            }
-        };
-    }
-
-    void sortedAdd(T element){
-        //TODO
-        //вставляем с головы в ближайшее место, для которого выполняется:
-        //node.prev <= tmp <= node.next
-        Node<T> tmp = new Node<>(element);
-        if (size == 0) {
-            head = tail = tmp;
-            size++;
-            System.out.println("add0: " + tmp.value + ", size: " + size + ", list: " + toString());
-        } else if (size == 1) {
-            if ((Integer)head.value < (Integer)tmp.value) {
-                tail.next = tmp;
-                tail.next.prev = tail;
-                tail = tail.next;
-                size++;
-//                System.out.println("add1-0: " + tmp.value + ", size: " + size + ", list: " + toString());
-            } else {
-                tail = head;
-                head = tmp;
-                tail.prev = head;
-                head.next = tail;
-                size++;
-//                System.out.println("add1-1: " + tmp.value + ", size: " + size + ", list: " + toString());
-            }
-        } else {
-            Node<T> node = head;
-            while ((Integer)node.value < (Integer)tmp.value) {
-                node = node.next;
-                if (node == null) {
-                    tail.next = tmp;
-                    tail.next.prev = tail;
-                    tail = tail.next;
-                    size++;
-//                    System.out.println("add2-0: " + tmp.value + ", size: " + size + ", list: " + toString());
-                    return;
-                }
-            }
-            if (node == head) {
-                head.prev = tmp;
-                head.prev.next = head;
-                head = head.prev;
-                size++;
-//                System.out.println("add2-1: " + tmp.value + ", size: " + size + ", list: " + toString());
-            } else {
-                Node<T> prev = node.prev;
-                tmp.next = node;
-                tmp.prev = prev;
-                prev.next = tmp;
-                node.prev = tmp;
-                size++;
-//                System.out.println("add2-2: " + tmp.value + ", size: " + size + ", list: " + toString());
-            }
-        }
-    }
-
     T first() {
         return head.value;
     }
@@ -119,8 +30,8 @@ public class MyLinkedList<T> implements Iterable<T> {
         return tail.value;
     }
 
-    void add(T element){
-        // TODO: 21.11.2019
+    // TODO: 21.11.2019
+    public void add(T element) {
         if (size == 0) {
             head = tail = new Node<>(element);
         } else {
@@ -131,52 +42,65 @@ public class MyLinkedList<T> implements Iterable<T> {
         size++;
     }
 
-    void add(int index, T element){
-        //TODO
-        if (size == 0) {
-            head = tail = new Node<>(element);
-        } else if (index >= size){
-            tail.next = new Node<>(element);
-            tail.next.prev = tail;
-            tail = tail.next;
-        } else if (index > 0 && index < size){
-            Node<T> node = head;
-            for (int i = 0; i < index; i++) {
-                node = node.next;
+    //TODO
+    public void add(int index, T element){
+        if (index == 0){
+            if (size == 0) {
+                head = tail = new Node<>(element);
+            } else {
+            head.prev = new Node<>(element);
+            head.prev.next = head;
+            head = head.prev;
             }
-            Node<T> prev = node.prev;
+            size++;
+        } else if (index >= size) {
+            throw new ArrayIndexOutOfBoundsException();
+        } else {
+            Node<T> node = head;
+            int cnt = 0;
+            while (cnt < index){
+                node = node.next;
+                cnt++;
+            }
             Node<T> tmp = new Node<>(element);
-            tmp.next = node;
-            tmp.prev = prev;
-            prev.next = tmp;
+            Node<T> last = node.prev;
+            last.next = tmp;
             node.prev = tmp;
+            tmp.next = node;
+            tmp.prev = last;
+            size++;
         }
-        size++;
     }
 
-    int size(){
-        //TODO
+    //TODO
+    public int size(){
         return size;
     }
 
-    void remove(){
-        //TODO
-        tail = tail.prev;
-        tail.next.prev = null;
-        tail.next = null;
+    //TODO
+    public void remove(){
+        if (size == 0) throw new ArrayIndexOutOfBoundsException();
+        if (size == 1) {
+            head = tail = null;
+        } else {
+            tail = tail.prev;
+            tail.next.prev = null;
+            tail.next = null;
+        }
         size--;
     }
 
-    void remove(int index){
-        //TODO
+    //TODO
+    public void remove (int index){
+        if (index >= size) throw new ArrayIndexOutOfBoundsException();
         if (index == 0) {
-            head = head.next;
-//?????????????????
-//если следующие две строчки не откомментированы, при попытке вызова медода
-//получаем нуллпоинтер эксепшн. Почему, ведь строчки то правильные???
-//возможно добавление неверно реализовано???
-//            head.prev.next = null;
-//            head.prev = null;
+            if (size == 1) {
+                head = tail = null;
+            } else {
+                head = head.next;
+                head.prev.next = null;
+                head.prev = null;
+            }
         } else {
             Node<T> node = head;
             for (int i = 0; i < index; i++) {
@@ -188,8 +112,9 @@ public class MyLinkedList<T> implements Iterable<T> {
         size--;
     }
 
-    T get(int index){
-        //TODO
+    //TODO
+    public T get(int index){
+        if (index >= size) throw new ArrayIndexOutOfBoundsException();
         Node<T> node = head;
         for (int i = 0; i < index; i++) {
             node = node.next;
@@ -197,8 +122,9 @@ public class MyLinkedList<T> implements Iterable<T> {
         return node.value;
     }
 
-    void set(int index, T value){
-        //TODO
+    //TODO
+    public void set(int index, T value){
+        if (index >= size) throw new ArrayIndexOutOfBoundsException();
         Node<T> node = head;
         for (int i = 0; i < index; i++) {
             node = node.next;
@@ -206,7 +132,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         node.value = value;
     }
 
-    String show () {
+    public String show () {
         Node<T> node = head;
         StringBuffer s = new StringBuffer();
         while (node != null) {
@@ -216,22 +142,121 @@ public class MyLinkedList<T> implements Iterable<T> {
         return s.toString();
     }
 
+    //TODO
+    /**
+     * Формат вывода в виде строки: [1, 2, 3, 4, 5]
+     */
     @Override
     public String toString() {
-        //TODO
-        //format: [1, 2, 3, 4, 5]
-        Node<T> node = head;
-        StringBuffer s = new StringBuffer();
-        s.append("[");
-        if (size == 0) {
-        } else if (size >= 1) {
-            s.append(node.value);
-            for (int i = 1; i < size; i++) {
-                node = node.next;
-                s.append(", " + node.value);
+        Node<T> tmp = head;
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        if (tmp != null) {
+            sb.append(tmp.value);
+            while (tmp.next != null) {
+                tmp = tmp.next;
+                sb.append(", ").append(tmp.value);
             }
         }
-        s.append("]");
-        return s.toString();
+        sb.append("]");
+        return sb.toString();
+    }
+
+    //TODO
+    /**
+     * Сортированная вставка, вставляем с головы в ближайшее место,
+     * для которого выполняется: node.prev <= tmp <= node.next
+     */
+    public void sortedAdd(T element){
+        Node<T> tmp = new Node<>(element);
+        if (size == 0) {
+            head = tail = tmp;
+        } else if (size == 1) {
+            if ((Integer)head.value < (Integer)tmp.value) {
+                tail.next = tmp;
+                tail.next.prev = tail;
+                tail = tail.next;
+            } else {
+                tail = head;
+                head = tmp;
+                tail.prev = head;
+                head.next = tail;
+            }
+        } else {
+            Node<T> node = head;
+            while ((Integer)node.value < (Integer)tmp.value) {
+                node = node.next;
+                if (node == null) {
+                    tail.next = tmp;
+                    tail.next.prev = tail;
+                    tail = tail.next;
+                    size++;
+                    return;
+                }
+            }
+            if (node == head) {
+                head.prev = tmp;
+                head.prev.next = head;
+                head = head.prev;
+            } else {
+                Node<T> prev = node.prev;
+                tmp.next = node;
+                tmp.prev = prev;
+                prev.next = tmp;
+                node.prev = tmp;
+            }
+        }
+        size++;
+    }
+
+    private Iterator<T> iterator;
+
+    public Iterator<T> iterator(){
+        iteratorNode = head;
+
+        return new Iterator<T>() {
+            //TODO
+            //проверка не ссылаемся ли мы на null
+            @Override
+            public boolean hasNext() {
+                return iteratorNode != null;
+            }
+
+            //TODO
+            //возвращаем текущий и переходим к следющему
+            @Override
+            public T next() {
+                T tmp = iteratorNode.value;
+                iteratorNode = iteratorNode.next;
+                return tmp;
+            }
+
+            //TODO
+            //удаляем текущий, следующий становится текущим
+            public void remove() {
+                iteratorNode = iteratorNode.prev;
+                Node<T> prev = iteratorNode.prev, next = iteratorNode.next;
+                if (prev == next && prev == null) {
+                    head = tail = null;
+                } else if(prev == null){
+                    head = head.next;
+                    head.prev.next = null;
+                    head.prev = null;
+                } else if(next == null) {
+                    tail = tail.prev;
+                    tail.next.prev = null;
+                    tail.next = null;
+                } else {
+                    prev.next.prev = null;
+                    prev.next = null;
+                    next.prev.next = null;
+                    next.prev = null;
+                    next.prev = prev;
+                    prev.next = next;
+                }
+                iteratorNode = next;
+                size--;
+            }
+        };
     }
 }
