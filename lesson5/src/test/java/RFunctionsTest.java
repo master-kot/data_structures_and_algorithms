@@ -10,8 +10,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RFunctionsTest {
-
-
     private Duration timeout = Duration.ofSeconds(1);
     RFunctions foo;
 
@@ -39,15 +37,15 @@ class RFunctionsTest {
         foo = new RFunctions();
         try {
             Scanner in = new Scanner(new File(
-                    "C:\\Users\\Mikhail\\IdeaProjects\\AS_geek_brains\\lesson5\\src\\main\\resources\\reversedata.txt"));
-            PrintWriter writer = new PrintWriter(new File("reversedata.ans"));
+                    "/home/nikolay/Рабочий стол/Java/GeekBrains/Алгоритмы и структуры данных на Java/!Homework/data_structures_and_algorithms/lesson5/src/main/resources/reversedata.txt"));
+            PrintWriter writer = new PrintWriter(new File("/home/nikolay/Рабочий стол/Java/GeekBrains/Алгоритмы и структуры данных на Java/!Homework/data_structures_and_algorithms/lesson5/src/main/resources/reversedata.ans"));
             foo.reverse(in, writer);
             writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         File file = new File(
-                "reversedata.ans");
+                "/home/nikolay/Рабочий стол/Java/GeekBrains/Алгоритмы и структуры данных на Java/!Homework/data_structures_and_algorithms/lesson5/src/main/resources/reversedata.ans");
         try {
             Scanner in = new Scanner(file);
             ArrayList<Integer> list = new ArrayList<>();
@@ -82,13 +80,13 @@ class RFunctionsTest {
         for (int i = 0; i < 5; i++) {
             list.add(i+1);
         }
-        List<Integer> left = foo.split(list).getKey();
-        List<Integer> right = foo.split(list).getValue();
+        List<Integer> left = foo.split(list).getLeft();
+        List<Integer> right = foo.split(list).getRight();
         assertEquals("[1, 2, 3]", left.toString());
         assertEquals("[4, 5]", right.toString());
         list.add(6);
-        left = foo.split(list).getKey();
-        right = foo.split(list).getValue();
+        left = foo.split(list).getLeft();
+        right = foo.split(list).getRight();
         assertEquals("[1, 2, 3]", left.toString());
         assertEquals("[4, 5, 6]", right.toString());
     }
@@ -112,16 +110,15 @@ class RFunctionsTest {
     void permutation() {
         foo = new RFunctions();
         try {
-            PrintWriter writer = new PrintWriter(new File("permut.txt"));
+            PrintWriter writer = new PrintWriter(new File("/home/nikolay/Рабочий стол/Java/GeekBrains/Алгоритмы и структуры данных на Java/!Homework/data_structures_and_algorithms/lesson5/src/main/resources/permut.txt"));
             foo.permutation(new int[]{1, 2, 3, 4, 5}, 5, 7, 0, writer);
             writer.close();
-            Scanner in = new Scanner(new File("permut.txt"));
+            Scanner in = new Scanner(new File("/home/nikolay/Рабочий стол/Java/GeekBrains/Алгоритмы и структуры данных на Java/!Homework/data_structures_and_algorithms/lesson5/src/main/resources/permut.txt"));
             ArrayList<Integer> list = new ArrayList<>();
             while (in.hasNext()){
                 list.add(in.nextInt());
             }
             assertEquals("[1, 3, 2, 4, 5]", list.toString());
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -132,5 +129,4 @@ class RFunctionsTest {
         foo = new RFunctions();
         assertEquals(11, foo.knackPack(new int[]{5, 7, 3, 1, 5}, 11));
     }
-
 }
