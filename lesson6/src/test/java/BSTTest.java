@@ -57,7 +57,7 @@ class BSTTest {
         tree.add(10);
         assertEquals("[4, 5, 6, 7, 8, 9, 10]", tree.inOrder());
     }
-/*
+
     @Test
     void postOrder() {
         BST<Integer> tree = new BST<>();
@@ -69,5 +69,5 @@ class BSTTest {
         tree.add(8);
         tree.add(10);
         assertEquals("[4, 6, 5, 8, 10, 9, 7]", tree.postOrder());
-    }*/
+    }
 }
